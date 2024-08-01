@@ -1,21 +1,21 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import React, { useState } from "react";
 
-function App() {
+const App: React.FC = () => {
+  const [inputValue, setInputValue] = useState<string>("");
+  const [result, setResult] = useState<string>("");
+
+  function search() {
+    setResult("検索結果");
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <input placeholder={"本のタイトルや著者を入力してください"} size={50}></input>
+      <button onClick={() => search()}>検索する</button>
+      <div>結果を表示する</div>
+      <p>{result}</p>
+    </>
   );
-}
+};
 
 export default App;
