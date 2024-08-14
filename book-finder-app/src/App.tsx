@@ -7,9 +7,7 @@ const App: React.FC = () => {
   const [result, setResult] = useState<string>("");
 
   function search() {
-    console.log(inputValue);
     axios.get("https://www.googleapis.com/books/v1/volumes?q=" + inputValue).then(function (response) {
-      // handle success
       setResultList(response.data.items);
     });
     setResult("検索結果");
@@ -29,9 +27,15 @@ const App: React.FC = () => {
         {resultList.map((data) => (
           <>
             <p>タイトル：{data.volumeInfo.title}</p>
-            <p>著者：{data.volumeInfo.authors}</p>
-            <p>発行日：{data.volumeInfo.publishedDate}</p>
-            <img src={data.volumeInfo.imageLinks.smallThumbnail} />
+            {data.volumeInfo.imageLinks ? (
+              <img src={data.volumeInfo.imageLinks.smallThumbnail} />
+            ) : (
+              "イメージが存在しません"
+            )}
+            <p>著者：{data.volumeInfo.authors || "データが存在しません"}</p>
+            {console.log(data.volumeInfo)}
+            <p>発行日：{data.volumeInfo.publishedDate || "データが存在しません"}</p>
+            <hr></hr>
           </>
         ))}
       </div>
